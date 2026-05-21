@@ -1,0 +1,8 @@
+.env
+venv/
+main.txt
+dados_teste.json
+busca.py
+dados_api.txt
+__pycache__/
+historico_consulta.json
