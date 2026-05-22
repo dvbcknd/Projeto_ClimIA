@@ -40,13 +40,13 @@ def get_api():
                 dados = response.json()
 
                 #LÓGICA PEGA HORÁRIO LOCAL DA CIDADE---------------------------------------------------
-                # EX: Londres: 3600 (1 hora), informação vem da API
+                #EX: Londres: 3600 (1 hora), informação vem da API
                 offset_fuso_horario = dados["timezone"]
                 #O timedelta converte os segundos em um objeto de duração de tempo,
                 #Depois é criado um objeto de fuso horário com esse offset. EX: fuso UTC +1
                 fuso_cidade = timezone(timedelta(seconds=offset_fuso_horario))
-                #Converte o timestamp Unix em data/hora legível, já aplicando o fuso horário da cidade
-                horario_cidade = datetime.fromtimestamp(dados["dt"], tz=fuso_cidade)
+                #Pega o horário atual já convertido para o fuso da cidade
+                horario_cidade = datetime.now(tz=fuso_cidade)
                 #Formata a data no padrão brasileiro
                 horario_formatado = horario_cidade.strftime("%d/%m/%Y %H:%M")
                 #--------------------------------------------------------------------------------------
