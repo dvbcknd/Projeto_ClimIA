@@ -3,7 +3,7 @@ import json
 import os
 
 
-def salvar_historico(nome_cidade, temperatura_atual, sensacao_terminca, descricao_tempo, umidade,agora_formatado, longitude, latitude):
+def salvar_historico(nome_cidade, temperatura_atual, sensacao_terminca, descricao_tempo, umidade,horario_formatado, longitude, latitude):
    
     dados_historico = {
         "nome_cidade": nome_cidade,
@@ -11,7 +11,7 @@ def salvar_historico(nome_cidade, temperatura_atual, sensacao_terminca, descrica
         "sensacao": sensacao_terminca,
         "descricao": descricao_tempo,
         "umidade": umidade,
-        "data_hora": agora_formatado,
+        "data_hora": horario_formatado,
         "coordenadas": {"lon": longitude, "lat": latitude}
     }
 

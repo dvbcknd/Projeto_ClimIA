@@ -5,6 +5,10 @@ from datetime import datetime
 from historico import salvar_historico
 from dotenv import load_dotenv
 from notificacao import enviar_webhook
+from datetime import timezone, timedelta
+
+
+
 
 #Trás a KEY de outro arquivo, aonde ela está oculta.
 load_dotenv()
@@ -32,10 +36,21 @@ def get_api():
                 if response.status_code == 404:
                     raise ValueError(f"Erro ao buscar cidade. Verifique se o nome está correto.")
                 
-                #Hora atual
-                agora_formatado = datetime.now().strftime("%d/%m/%Y %H:%M")
 
                 dados = response.json()
+
+                #LÓGICA PEGA HORÁRIO LOCAL DA CIDADE---------------------------------------------------
+                # EX: Londres: 3600 (1 hora), informação vem da API
+                offset_fuso_horario = dados["timezone"]
+                #O timedelta converte os segundos em um objeto de duração de tempo,
+                #Depois é criado um objeto de fuso horário com esse offset. EX: fuso UTC +1
+                fuso_cidade = timezone(timedelta(seconds=offset_fuso_horario))
+                #Converte o timestamp Unix em data/hora legível, já aplicando o fuso horário da cidade
+                horario_cidade = datetime.fromtimestamp(dados["dt"], tz=fuso_cidade)
+                #Formata a data no padrão brasileiro
+                horario_formatado = horario_cidade.strftime("%d/%m/%Y %H:%M")
+                #--------------------------------------------------------------------------------------
+
 
                 nome_cidade = dados["name"]
                 temperatura_atual = dados["main"]["temp"]
@@ -55,9 +70,9 @@ def get_api():
                 # print(f"a temperatura mínima pode chegar à {temp_min:.1f}".replace(".",",") + f"°C, e a máxima até {temp_max:.1f}".replace(".",",") + "°C")
                 print(f"a visibilidade é de {visibilidade_formatada}km, temos {descricao_tempo}, e umidade de {umidade}%")
                 print(f"as coordenadas são: lon:{longitude} ; lat:{latitude}")
-                print(f"Data e hora da consulta: {agora_formatado}")
+                print(f"Data e hora da local: {horario_formatado}")
 
-                salvar_historico(nome_cidade, temperatura_atual, sensacao_terminca, descricao_tempo, umidade, agora_formatado, longitude, latitude)
+                salvar_historico(nome_cidade, temperatura_atual, sensacao_terminca, descricao_tempo, umidade, horario_formatado, longitude, latitude)
 
                 enviar_webhook({
                     "cidade": nome_cidade,
@@ -65,9 +80,8 @@ def get_api():
                     "sensacao_termica": sensacao_terminca,
                     "descricao": descricao_tempo,
                     "umidade": umidade,
-                    "data_hora": agora_formatado,
-                    "coordenadas": {"lon": longitude, "lat": latitude},
-                    "data_hora": agora_formatado                
+                    "data_hora": horario_formatado,
+                    "coordenadas": {"lon": longitude, "lat": latitude},            
                 })
             except Exception as err:
                 print("\n")
@@ -77,7 +91,7 @@ def get_api():
                 #Se caiu aqui o arquivo já existe
                 if os.path.exists("historico_consulta.json") == True:
                     with open("historico_consulta.json", "r", encoding="utf-8") as arquivo:
-                        #json.load() - converte o arquivo recebido em arquivo de lista, que pode usar o append.
+                        #json.load() - converte o arquivo recebido em arquivo de lista.
                         historico_existente = json.load(arquivo)
                         
                         #historico percorre cada item da lista e imprime
