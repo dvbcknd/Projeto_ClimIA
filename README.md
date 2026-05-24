@@ -20,6 +20,12 @@ O ClimIA é um assistente de clima via terminal que consulta dados meteorológic
 ```
 Usuário → Python → OpenWeatherMap API → n8n Webhook → Groq (IA) → Telegram
 ```
+<img width="1478" height="535" alt="dashbord_n8n" src="https://github.com/user-attachments/assets/dbb19cf6-1823-46ba-ba0f-9a2cb4b36158" />
+<img width="1170" height="604" alt="code_n8n" src="https://github.com/user-attachments/assets/f9b4506f-22c3-4b6f-98d0-55065c2aa320" />
+<img width="1546" height="311" alt="resultado_ia_n8n" src="https://github.com/user-attachments/assets/bb83b89a-abff-4fb5-be52-1fa8ea1fe44e" />
+
+
+
 
 ## 📁 Estrutura de Arquivos
 
