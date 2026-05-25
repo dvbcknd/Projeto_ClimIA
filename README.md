@@ -1,6 +1,6 @@
 # 🌤️ ClimIA — Assistente Inteligente de Clima
 
-Aplicação desenvolvida como projeto final da matéria de Programação Aplicada em Python do curso de Especialização Técnica em Inteligência Artificial do SENAI, integrando Python, APIs, JSON, automação com n8n e Inteligência Artificial.
+Aplicação desenvolvida como projeto final da matéria de Programação Aplicada em Python do curso de Especialização Técnica em Desenvolvimento de Aplicações para Inteligência Artificial do SENAI, integrando Python, APIs, JSON, automação com n8n e Inteligência Artificial.
 
 ## 📋 Descrição
 
