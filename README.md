@@ -105,4 +105,4 @@ A cada consulta, uma mensagem gerada por IA será enviada automaticamente para o
 
 ## 👨‍💻 Autor
 
-Bruno — Curso de Especialização Técnica em Inteligência Artificial do SENAI Bahia
+Bruno — Curso de  Especialização Técnica em Desenvolvimento de Aplicações para Inteligência Artificialdo SENAI Bahia
